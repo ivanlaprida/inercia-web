@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proyectos — Inercia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111111;
+      --white: #FAFAF8;
+      --gray: #6B6B6B;
+      --light-gray: #E8E6E0;
+      --warm: #C4A882;
+      --accent: #8B6F47;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 60px;
+      background: rgba(250, 250, 248, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      width: 96px;
+      height: auto;
+      margin-left: -26px;
+      margin-top: -18px;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--black); }
+
+    /* HEADER */
+    .page-header {
+      padding: 120px 60px 60px;
+    }
+
+    .page-header p {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 400;
+      color: var(--black);
+    }
+
+    /* GRID */
+    .proyectos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 0 60px 100px;
+    }
+
+    .proyecto-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--light-gray);
+      cursor: pointer;
+      height: 380px;
+    }
+
+    .proyecto-item-bg {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .proyecto-item-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .proyecto-item:hover .proyecto-item-bg img { transform: scale(1.04); }
+
+    .proyecto-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 32px;
+    }
+
+    .proyecto-item:hover .proyecto-overlay { opacity: 1; }
+
+    .proyecto-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .proyecto-info p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .proyecto-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+      font-size: 14px;
+    }
+
+    .proyecto-item:hover .proyecto-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #lightbox.open { display: flex; }
+
+    .lb-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .lb-close:hover { opacity: 1; }
+
+    .lb-header {
+      position: absolute;
+      top: 24px; left: 40px;
+    }
+
+    .lb-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .lb-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .lb-main {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      max-height: 70vh;
+      width: 100%;
+      justify-content: center;
+      padding: 0 60px;
+    }
+
+    #lbImg {
+      max-height: 70vh;
+      max-width: 75vw;
+      object-fit: contain;
+      border-radius: 2px;
+    }
+
+    .lb-nav {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .lb-nav:hover { background: rgba(255,255,255,0.2); }
+    .lb-nav:disabled { opacity: 0.2; cursor: default; }
+
+    .lb-thumbs {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+      max-width: 80vw;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .lb-thumb {
+      width: 64px;
+      height: 48px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.5;
+      border-radius: 2px;
+      border: 2px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .lb-thumb.active, .lb-thumb:hover { opacity: 1; border-color: var(--warm); }
+
+    .lb-counter {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div style="width:30px;height:28px;overflow:hidden;flex-shrink:0;">
+        <img src="Logo_inercia_1_t.png" alt="Inercia" />
+      </div>
+      <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.18em;color:var(--black);margin-left:10px;">INERCIA</span>
+    </a>
+    <a href="index.html" class="nav-back">← Volver al inicio</a>
+  </nav>
+
+  <div class="page-header">
+    <p>Portfolio</p>
+    <h1>Todos nuestros proyectos</h1>
+  </div>
+
+  <div class="proyectos-grid">
+
+    <div class="proyecto-item" onclick='openLightbox("Pirovano","Cocina a medida · 2024",["PIROVANO/IMG_0187.jpg","PIROVANO/IMG_9858.jpg","PIROVANO/_MG_7992 (1).JPG","PIROVANO/_MG_8232 (1).JPG","PIROVANO/_MG_8233.JPG","PIROVANO/_MG_8306.JPG","PIROVANO/_MG_8313 (1).JPG"])'>
+      <div class="proyecto-item-bg"><img src="PIROVANO/IMG_0187.jpg" alt="Pirovano" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Pirovano</h3><p>Cocina a medida · 2024</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("El Trébol","Cocina a medida · 2024",["EL TREBOL/acr trebol-023.jpg","EL TREBOL/acr trebol-025.jpg","EL TREBOL/acr trebol-026.jpg","EL TREBOL/acr trebol-028.jpg","EL TREBOL/acr trebol-034.jpg","EL TREBOL/acr trebol-038.jpg","EL TREBOL/acr trebol-039.jpg","EL TREBOL/acr trebol-041.jpg","EL TREBOL/acr trebol-043.jpg","EL TREBOL/acr trebol-044.jpg","EL TREBOL/acr trebol-050.jpg","EL TREBOL/acr trebol-105.jpg","EL TREBOL/acr trebol-107.jpg","EL TREBOL/acr trebol-111.jpg","EL TREBOL/acr trebol-134.jpg","EL TREBOL/acr trebol-135.jpg","EL TREBOL/acr trebol-136.jpg","EL TREBOL/acr trebol-139.jpg","EL TREBOL/acr trebol-140.jpg","EL TREBOL/acr trebol-141.jpg"])'>
+      <div class="proyecto-item-bg"><img src="EL TREBOL/acr trebol-023.jpg" alt="El Trébol" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>El Trébol</h3><p>Cocina a medida · 2024</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Martindale","Cocina clásica · 2024",["MARTINDALE/IMG_9837 2.jpg","MARTINDALE/IMG_9879.jpg","MARTINDALE/IMG_9882 2.jpg","MARTINDALE/IMG_9892.jpg","MARTINDALE/IMG_9967 2.jpg"])'>
+      <div class="proyecto-item-bg"><img src="MARTINDALE/IMG_9837 2.jpg" alt="Martindale" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Martindale</h3><p>Cocina clásica · 2024</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Santa Bárbara","Vestidor · 2022",["SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM.jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (2).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM.jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.05 AM.jpeg"])'>
+      <div class="proyecto-item-bg"><img src="SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM.jpeg" alt="Santa Bárbara" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Santa Bárbara</h3><p>Vestidor · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Sucre","Cocina a medida · 2023",["SUCRE/IMG_4121.jpg","SUCRE/IMG_4151.jpg","SUCRE/IMG_4194.jpg","SUCRE/IMG_4211.jpg","SUCRE/IMG_4259-2.jpg","SUCRE/_MG_7405.JPG","SUCRE/_MG_7408.JPG","SUCRE/_MG_7424.JPG","SUCRE/_MG_7438.JPG"])'>
+      <div class="proyecto-item-bg"><img src="SUCRE/IMG_4121.jpg" alt="Sucre" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Sucre</h3><p>Cocina a medida · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("San Jorge I","Mueble a medida · 2022",["SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (3).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (2).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (4).jpeg"])'>
+      <div class="proyecto-item-bg"><img src="SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM.jpeg" alt="San Jorge I" style="object-position: center 30%;" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>San Jorge I</h3><p>Mueble a medida · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Laprida","Cocina a medida · 2022",["LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (4).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.15 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (1).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (2).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (3).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.17 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.17 PM (1).jpeg"])'>
+      <div class="proyecto-item-bg"><img src="LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (4).jpeg" alt="Laprida" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Laprida</h3><p>Cocina a medida · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Alto Perú","Cocina a medida · 2023",["ALTO PERU/DSC_2098.JPG","ALTO PERU/DSC_2142.JPG","ALTO PERU/DSC_2217.JPG","ALTO PERU/DSC_2225.JPG","ALTO PERU/DSC_2227.JPG","ALTO PERU/DSC_2229.JPG","ALTO PERU/DSC_2252.JPG","ALTO PERU/DSC_2254.jpg","ALTO PERU/52D3145A-AC5B-400F-A799-41E561DD90BC_1_105_c.jpeg","ALTO PERU/B6FE1C5B-4A5E-4B5A-A290-504360DB1E36_1_105_c.jpeg"])'>
+      <div class="proyecto-item-bg"><img src="ALTO PERU/DSC_2098.JPG" alt="Alto Perú" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Alto Perú</h3><p>Cocina a medida · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Barbarita","Cocina a medida · 2022",["BARBARITA/BARBARITA.jpeg","BARBARITA/BARBARITA (2).jpeg","BARBARITA/BARBARITA (3).jpeg","BARBARITA/BARBARITA (4).jpeg","BARBARITA/0b45557f-56c6-49fd-8325-4f7d431f7f98.jpg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.02 PM.jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.03 PM (1).jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.37 PM.jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.38 PM.jpeg"])'>
+      <div class="proyecto-item-bg"><img src="BARBARITA/BARBARITA.jpeg" alt="Barbarita" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Barbarita</h3><p>Cocina a medida · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Las Heras","Muebles de diseño · 2023",["LAS HERAS/ACR Studio S01 © Fede Paul 053.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 055.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 058.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 062.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 065.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 070.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 075.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 080.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 085.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 090.jpg"])'>
+      <div class="proyecto-item-bg"><img src="LAS HERAS/ACR Studio S01 © Fede Paul 053.jpg" alt="Las Heras" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Las Heras</h3><p>Muebles de diseño · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Manzanares","Cocina a medida · 2023",["MANZANARES/_MG_6639.JPG","MANZANARES/_MG_6666.JPG","MANZANARES/_MG_6768.JPG","MANZANARES/_MG_6805.JPG","MANZANARES/_MG_6933.JPG","MANZANARES/_MG_6941.JPG","MANZANARES/IMG_8876.jpg","MANZANARES/IMG_8972.jpg","MANZANARES/IMG_8989.jpg","MANZANARES/IMG_8991.jpg","MANZANARES/IMG_8995.jpg","MANZANARES/IMG_9112.jpg","MANZANARES/IMG_0153.JPG","MANZANARES/IMG_0154.JPG","MANZANARES/isla.jpg"])'>
+      <div class="proyecto-item-bg"><img src="MANZANARES/_MG_6639.JPG" alt="Manzanares" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Manzanares</h3><p>Cocina a medida · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Pinguinos CC","Cocina a medida · 2023",["PINGUINOS CC/IMG_2817.jpg","PINGUINOS CC/IMG_2819.jpg","PINGUINOS CC/IMG_2821.jpg","PINGUINOS CC/IMG_2822.jpg","PINGUINOS CC/IMG_2829.jpg"])'>
+      <div class="proyecto-item-bg"><img src="PINGUINOS CC/IMG_2817.jpg" alt="Pinguinos CC" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Pinguinos CC</h3><p>Cocina a medida · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("San Sebastián","Cocina a medida · 2022",["SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM.jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (1).jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (2).jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (3).jpeg"])'>
+      <div class="proyecto-item-bg"><img src="SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM.jpeg" alt="San Sebastián" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>San Sebastián</h3><p>Cocina a medida · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Vicente López I","Vestidor · 2022",["VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (1).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (2).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM (1).jpeg"])'>
+      <div class="proyecto-item-bg"><img src="VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM.jpeg" alt="Vicente López I" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Vicente López I</h3><p>Vestidor · 2022</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+    <div class="proyecto-item" onclick='openLightbox("Colegio Copello","Proyecto comercial · 2023",["COLEGIO COPELLO/IMG_3449.jpg","COLEGIO COPELLO/IMG_3510.jpg","COLEGIO COPELLO/IMG_3566.jpg","COLEGIO COPELLO/IMG_3580.jpg","COLEGIO COPELLO/IMG_3589.jpg","COLEGIO COPELLO/IMG_3592.jpg","COLEGIO COPELLO/IMG_3593.jpg","COLEGIO COPELLO/IMG_3605.jpg","COLEGIO COPELLO/IMG_3609.jpg","COLEGIO COPELLO/IMG_3610.jpg","COLEGIO COPELLO/IMG_3612.jpg","COLEGIO COPELLO/IMG_3613.jpg","COLEGIO COPELLO/IMG_3614.jpg","COLEGIO COPELLO/IMG_3615.jpg","COLEGIO COPELLO/IMG_3617.jpg","COLEGIO COPELLO/IMG_3618.jpg","COLEGIO COPELLO/IMG_3642.jpg","COLEGIO COPELLO/IMG_3668.jpg","COLEGIO COPELLO/IMG_3712.jpg","COLEGIO COPELLO/IMG_3722.jpg"])'>
+      <div class="proyecto-item-bg"><img src="COLEGIO COPELLO/IMG_3449.jpg" alt="Colegio Copello" /></div>
+      <div class="proyecto-overlay"><div class="proyecto-info"><h3>Colegio Copello</h3><p>Proyecto comercial · 2023</p></div></div>
+      <div class="proyecto-icon">↗</div>
+    </div>
+
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <button class="lb-close" onclick="closeLightbox()">×</button>
+    <div class="lb-header">
+      <div class="lb-title" id="lbTitle"></div>
+      <div class="lb-meta" id="lbMeta"></div>
+    </div>
+    <div class="lb-main">
+      <button class="lb-nav" id="lbPrev" onclick="lbNav(-1)">&#8592;</button>
+      <img id="lbImg" src="" alt="" />
+      <button class="lb-nav" id="lbNext" onclick="lbNav(1)">&#8594;</button>
+    </div>
+    <div class="lb-thumbs" id="lbThumbs"></div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+
+  <script>
+    let lbImages = [], lbIndex = 0;
+
+    function openLightbox(title, meta, images) {
+      lbImages = images;
+      lbIndex = 0;
+      document.getElementById('lbTitle').textContent = title;
+      document.getElementById('lbMeta').textContent = meta;
+      showImage(0);
+      buildThumbs();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function lbNav(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      showImage(lbIndex);
+    }
+
+    function showImage(i) {
+      lbIndex = i;
+      document.getElementById('lbImg').src = lbImages[i];
+      document.getElementById('lbCounter').textContent = (i + 1) + ' / ' + lbImages.length;
+      document.getElementById('lbPrev').disabled = i === 0;
+      document.getElementById('lbNext').disabled = i === lbImages.length - 1;
+      document.querySelectorAll('.lb-thumb').forEach((t, idx) => {
+        t.classList.toggle('active', idx === i);
+      });
+    }
+
+    function buildThumbs() {
+      const container = document.getElementById('lbThumbs');
+      container.innerHTML = '';
+      lbImages.forEach((src, i) => {
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'lb-thumb' + (i === 0 ? ' active' : '');
+        img.onclick = () => showImage(i);
+        container.appendChild(img);
+      });
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>

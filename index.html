@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inercia — Muebles de Diseño</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111111;
+      --white: #FAFAF8;
+      --gray: #6B6B6B;
+      --light-gray: #E8E6E0;
+      --warm: #C4A882;
+      --accent: #8B6F47;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      overflow: hidden;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 60px;
+      background: rgba(250, 250, 248, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    nav.scrolled { border-bottom-color: var(--light-gray); }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      width: 96px;
+      height: auto;
+      margin-left: -26px;
+      margin-top: -18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--black); }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white) !important;
+      background: var(--black);
+      padding: 10px 24px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--accent) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    #inicio {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 56px;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 60px;
+    }
+
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 28px;
+      color: var(--black);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      padding: 16px 36px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--accent); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .btn-secondary:hover { color: var(--black); }
+
+    .btn-secondary::after {
+      content: '→';
+      transition: transform 0.2s;
+    }
+
+    .btn-secondary:hover::after { transform: translateX(4px); }
+
+    .hero-right {
+      position: relative;
+      background: var(--light-gray);
+      overflow: hidden;
+    }
+
+    .hero-image-placeholder {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-image-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .hero-badge {
+      position: absolute;
+      bottom: 48px;
+      left: -20px;
+      background: var(--white);
+      border: 1px solid var(--light-gray);
+      padding: 20px 28px;
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+
+    .hero-badge-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .hero-badge-label {
+      font-size: 12px;
+      color: var(--gray);
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 100px 60px; }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.5vw, 34px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--black);
+    }
+
+    .section-subtitle {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--gray);
+      margin-top: 16px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios { background: var(--black); }
+
+    #servicios .section-eyebrow { color: var(--warm); }
+    #servicios .section-title { color: var(--white); }
+    #servicios .section-subtitle { color: #999; }
+
+    .services-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 80px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: #222;
+    }
+
+    .service-card {
+      background: var(--black);
+      padding: 48px 40px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .service-card:hover { background: #161616; }
+
+    .service-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: #222;
+      line-height: 1;
+      margin-bottom: 32px;
+      transition: color 0.3s;
+    }
+
+    .service-card:hover .service-num { color: var(--warm); }
+
+    .service-name {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .service-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: #777;
+      line-height: 1.7;
+    }
+
+    .service-ver {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-top: 20px;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .service-card:hover .service-ver {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .service-line {
+      position: absolute;
+      bottom: 0; left: 40px; right: 40px;
+      height: 1px;
+      background: var(--warm);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .service-card:hover .service-line { transform: scaleX(1); }
+
+    /* ── PROCESO ── */
+    .proceso-step {
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .proceso-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      background: var(--black);
+    }
+
+    .proceso-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 12px;
+      min-height: 36px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .proceso-desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    @media (max-width: 768px) {
+      #proceso { padding: 70px 24px; }
+      #proceso .section-title { margin-bottom: 48px; }
+      #proceso > div > div:last-child { grid-template-columns: 1fr 1fr; gap: 40px; }
+      #proceso > div > div:last-child > div:first-child { display: none; } /* ocultar línea */
+    }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { padding-bottom: 0; overflow: visible; }
+    .portfolio-carousel-wrap { padding: 0 40px; }
+
+    .portfolio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 60px;
+    }
+
+    .portfolio-carousel-wrap {
+      position: relative;
+    }
+
+    .portfolio-track-wrap {
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .portfolio-grid {
+      display: flex;
+      gap: 12px;
+      transition: transform 0.45s ease;
+      width: 100%;
+    }
+
+    .portfolio-item {
+      position: relative;
+      overflow: hidden;
+      background: var(--light-gray);
+      cursor: pointer;
+      flex: 0 0 calc(33.333% - 8px);
+      height: 400px;
+    }
+
+    .portfolio-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--black);
+      border: 1px solid #333;
+      color: var(--warm);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .portfolio-carousel-btn:hover { background: #1a1a1a; border-color: var(--warm); }
+    .portfolio-carousel-btn.prev { left: -40px; }
+    .portfolio-carousel-btn.next { right: -40px; }
+    .portfolio-carousel-btn:disabled { opacity: 0.2; cursor: default; }
+
+    .portfolio-item-bg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+      overflow: hidden;
+    }
+
+    .portfolio-item-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .portfolio-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex;
+      align-items: flex-end;
+      padding: 32px;
+    }
+
+    .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+
+    .portfolio-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .portfolio-info p {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .portfolio-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.3s, transform 0.3s;
+      font-size: 14px;
+    }
+
+    .portfolio-item:hover .portfolio-icon {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── NOSOTROS ── */
+    #nosotros {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .nosotros-image {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .nosotros-image .ni-main {
+      grid-row: 1 / 3;
+      overflow: hidden;
+    }
+
+    .nosotros-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .nosotros-image .ni-main,
+    .nosotros-image .ni-small {
+      overflow: hidden;
+    }
+
+    .nosotros-image img:hover { transform: scale(1.04); }
+
+    .nosotros-content { padding-right: 20px; }
+
+    .nosotros-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+      padding-top: 48px;
+      border-top: 1px solid var(--light-gray);
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 400;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
+
+    .nosotros-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-top: 24px;
+    }
+
+    /* ── TESTIMONIOS ── */
+    #testimonios {
+      background: var(--black);
+      padding: 100px 60px;
+      text-align: center;
+    }
+
+    #testimonios .section-eyebrow { color: var(--warm); }
+    #testimonios .section-title { color: var(--white); margin-bottom: 64px; }
+
+    .testimonios-carousel {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .testimonios-track-wrap {
+      overflow: hidden;
+    }
+
+    .testimonios-grid {
+      display: flex;
+      gap: 32px;
+      transition: transform 0.4s ease;
+    }
+
+    .testimonios-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #222;
+      border: 1px solid #333;
+      color: var(--warm);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      transition: background 0.2s;
+    }
+
+    .testimonios-carousel-btn:hover { background: #2e2e2e; }
+    .testimonios-carousel-btn.prev { left: -56px; }
+    .testimonios-carousel-btn.next { right: -56px; }
+    .testimonios-carousel-btn:disabled { opacity: 0.2; cursor: default; }
+
+    .testimonio-card {
+      background: #161616;
+      border: 1px solid #222;
+      padding: 48px 44px;
+      border-radius: 2px;
+      text-align: left;
+      position: relative;
+      flex: 0 0 calc((1100px - 64px) / 3);
+      min-width: 0;
+    }
+
+    .testimonio-comilla {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      line-height: 0.6;
+      color: var(--warm);
+      opacity: 0.4;
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .testimonio-texto {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 400;
+      font-style: italic;
+      color: #DDDDDD;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: none;
+    }
+
+    .testimonio-texto.expanded {
+      display: block;
+      overflow: visible;
+      -webkit-line-clamp: unset;
+    }
+
+    .testimonio-leer-mas {
+      background: none;
+      border: none;
+      color: var(--warm);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .testimonio-leer-mas:hover { color: var(--accent); }
+
+    .testimonio-autor {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding-top: 24px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .testimonio-nombre {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .testimonio-obra {
+      font-size: 12px;
+      color: var(--warm);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── CONTACTO ── */
+    #contacto { background: var(--white); border-top: 1px solid var(--light-gray); }
+
+    .contacto-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    .contacto-info-block {
+      margin-top: 48px;
+    }
+
+    .contacto-info-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 32px;
+    }
+
+    .contacto-info-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .contacto-info-value {
+      font-size: 15px;
+      color: var(--black);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contacto-info-value:hover { color: var(--accent); }
+
+    .form-group { margin-bottom: 24px; }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--light-gray);
+      padding: 12px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-bottom-color: var(--accent);
+    }
+
+    textarea { resize: none; min-height: 100px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .btn-submit {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--black);
+      border: none;
+      padding: 18px 44px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 12px;
+    }
+
+    .btn-submit:hover { background: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo img {
+      height: 100px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: #555;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 32px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: #555;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 48px;
+      height: 2px;
+      background: var(--accent);
+      margin: 28px 0;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    .lightbox-overlay.active { display: flex; }
+
+    .lightbox-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 40px;
+      flex-shrink: 0;
+    }
+
+    .lightbox-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--white);
+      letter-spacing: 0.04em;
+    }
+
+    .lightbox-meta {
+      font-size: 12px;
+      color: #666;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .lightbox-counter {
+      font-size: 13px;
+      color: #666;
+      letter-spacing: 0.08em;
+    }
+
+    .lightbox-close {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 28px;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .lightbox-close:hover { color: var(--white); }
+
+    .lightbox-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 0 80px;
+    }
+
+    .lightbox-img-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--white);
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+
+    .lightbox-btn:hover { background: rgba(255,255,255,0.18); }
+    .lightbox-btn.prev { left: 16px; }
+    .lightbox-btn.next { right: 16px; }
+
+    .lightbox-thumbs {
+      display: flex;
+      gap: 8px;
+      padding: 16px 40px;
+      overflow-x: auto;
+      flex-shrink: 0;
+      scrollbar-width: none;
+    }
+
+    .lightbox-thumbs::-webkit-scrollbar { display: none; }
+
+    .lightbox-thumb {
+      width: 64px;
+      height: 48px;
+      flex-shrink: 0;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.2s;
+      border: 2px solid transparent;
+      border-radius: 1px;
+    }
+
+    .lightbox-thumb.active,
+    .lightbox-thumb:hover { opacity: 1; border-color: var(--warm); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+
+      section { padding: 70px 24px; }
+
+      #inicio { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 100px 24px 60px; }
+      .hero-right { height: 60vw; min-height: 260px; }
+      .hero-badge { left: 24px; bottom: 24px; }
+
+      .services-header { grid-template-columns: 1fr; gap: 24px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+
+      .portfolio-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .portfolio-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .portfolio-item:first-child { grid-row: auto; }
+      .portfolio-item { height: 260px; }
+
+      #nosotros { grid-template-columns: 1fr; gap: 48px; padding: 70px 24px; }
+      .nosotros-content { padding-right: 0; }
+
+      .contacto-inner { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox">
+    <div class="lightbox-header">
+      <div>
+        <div class="lightbox-title" id="lb-title"></div>
+        <div class="lightbox-meta" id="lb-meta"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:24px;">
+        <span class="lightbox-counter" id="lb-counter"></span>
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      </div>
+    </div>
+    <div class="lightbox-body">
+      <button class="lightbox-btn prev" onclick="lbNav(-1)">‹</button>
+      <div class="lightbox-img-wrap">
+        <img id="lb-img" src="" alt="" />
+      </div>
+      <button class="lightbox-btn next" onclick="lbNav(1)">›</button>
+    </div>
+    <div class="lightbox-thumbs" id="lb-thumbs"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#inicio" class="nav-logo">
+      <div style="width:30px;height:28px;overflow:hidden;flex-shrink:0;">
+        <img src="Logo_inercia_1_t.png" alt="Inercia" style="width:72px;height:auto;margin-left:-20px;margin-top:-12px;" />
+      </div>
+      <span style="font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.18em;color:var(--black);margin-left:10px;">INERCIA</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#proceso">Cómo trabajamos</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#testimonios">Testimonios</a></li>
+      <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Buenos Aires · Hecho a Mano · 2019</p>
+      <h1 class="hero-title">
+        Espacios que<br/>
+        <em>inspiran</em>
+      </h1>
+      <p style="font-size:15px; color:var(--gray); font-weight:400; letter-spacing:0.01em; margin-bottom:12px; line-height:1.6;">
+        Fabricamos muebles a medida y acompañamos cada proyecto desde el diseño hasta la instalación final.
+      </p>
+      <p class="hero-desc">
+        Cocinas, vestidores y muebles de diseño para proyectos residenciales y comerciales. Cada pieza diseñada específicamente para el espacio y la forma de vivir de cada cliente.
+      </p>
+      <div class="hero-actions">
+        <a href="#portfolio" class="btn-primary">Ver trabajos</a>
+        <a href="#contacto" class="btn-secondary">Consultanos</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-placeholder">
+        <img src="PIROVANO/IMG_9858.jpg" alt="Cocina Inercia" />
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-num">+8</div>
+        <div class="hero-badge-label">Años de experiencia</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="services-header">
+      <div>
+        <p class="section-eyebrow">Lo que hacemos</p>
+        <h2 class="section-title">Diseño que<br/>se adapta a vos</h2>
+      </div>
+      <p class="section-subtitle">
+        Trabajamos cada proyecto como si fuera único, desde el boceto inicial hasta la instalación final, acompañándote en cada parte del proceso. Porque la calidad está en cada detalle de la cadena.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" onclick='openLightbox("Cocinas a Medida","Proyectos residenciales · Diseño y fabricación propia",["PIROVANO/IMG_0187.jpg","PIROVANO/IMG_9858.jpg","PIROVANO/_MG_8313 (1).JPG","EL TREBOL/acr trebol-023.jpg","EL TREBOL/acr trebol-025.jpg","EL TREBOL/acr trebol-034.jpg","EL TREBOL/acr trebol-050.jpg","MARTINDALE/IMG_9837 2.jpg","MARTINDALE/IMG_9879.jpg","MARTINDALE/IMG_9892.jpg","SUCRE/IMG_4121.jpg","SUCRE/_MG_7424.JPG","SUCRE/_MG_7438.JPG","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (4).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.15 PM.jpeg","ALTO PERU/DSC_2098.JPG","ALTO PERU/DSC_2217.JPG","ALTO PERU/DSC_2227.JPG","BARBARITA/BARBARITA.jpeg","BARBARITA/BARBARITA (2).jpeg","BARBARITA/BARBARITA (3).jpeg","MANZANARES/_MG_6639.JPG","MANZANARES/_MG_6805.JPG","MANZANARES/isla.jpg","PINGUINOS CC/IMG_2817.jpg","PINGUINOS CC/IMG_2821.jpg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM.jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (1).jpeg"])'>
+        <div class="service-num">01</div>
+        <h3 class="service-name">Cocinas a Medida</h3>
+        <p class="service-desc">Diseñamos y fabricamos cocinas que combinan funcionalidad y estética, adaptadas al espacio y estilo de vida de cada cliente.</p>
+        <p class="service-ver">Ver proyectos →</p>
+        <div class="service-line"></div>
+      </div>
+      <div class="service-card" onclick='openLightbox("Vestidores","Diseño a medida · Materiales de primera calidad",["SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM.jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (2).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM.jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.05 AM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (1).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (2).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM (1).jpeg"])'>
+        <div class="service-num">02</div>
+        <h3 class="service-name">Vestidores</h3>
+        <p class="service-desc">Vestidores personalizados que maximizan el espacio y el orden, con materiales de primera calidad y terminaciones impecables.</p>
+        <p class="service-ver">Ver proyectos →</p>
+        <div class="service-line"></div>
+      </div>
+      <div class="service-card" onclick='openLightbox("Muebles de Diseño","Piezas únicas · Placards, bibliotecas y más",["SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (3).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (2).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (4).jpeg","LAS HERAS/ACR Studio S01 © Fede Paul 053.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 055.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 058.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 062.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 065.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 070.jpg","COLEGIO COPELLO/IMG_3449.jpg","COLEGIO COPELLO/IMG_3566.jpg","COLEGIO COPELLO/IMG_3605.jpg","COLEGIO COPELLO/IMG_3612.jpg"])'>
+        <div class="service-num">03</div>
+        <h3 class="service-name">Muebles de Diseño</h3>
+        <p class="service-desc">Placards, bibliotecas, mesas y más. Cada pieza diseñada exclusivamente para tu hogar u oficina, sin soluciones de serie.</p>
+        <p class="service-ver">Ver proyectos →</p>
+        <div class="service-line"></div>
+      </div>
+      <div class="service-card" onclick="window.location.href='desarrollos.html'">
+        <div class="service-num">04</div>
+        <h3 class="service-name">Desarrollos</h3>
+        <p class="service-desc">Trabajamos con desarrolladores inmobiliarios equipando proyectos completos, desde unidades residenciales hasta espacios comerciales y corporativos.</p>
+        <p class="service-ver" style="margin-top:20px;">Ver presentación →</p>
+        <div class="service-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso" style="background:var(--black); padding:100px 80px;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <p class="section-eyebrow" style="color:var(--warm);">Cómo trabajamos</p>
+      <h2 class="section-title" style="color:var(--white); margin-bottom:64px;">Un proceso pensado<br/>para cada detalle</h2>
+      <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative;">
+        <!-- línea conectora -->
+        <div style="position:absolute; top:28px; left:calc(100%/12); right:calc(100%/12); height:1px; background:var(--accent); opacity:0.4; z-index:0;"></div>
+        <!-- pasos -->
+        <div class="proceso-step">
+          <div class="proceso-num">01</div>
+          <div class="proceso-label">Diseño</div>
+          <div class="proceso-desc">Desarrollamos la propuesta en planos para que el cliente pueda visualizar el resultado antes del relevamiento técnico.</div>
+        </div>
+        <div class="proceso-step">
+          <div class="proceso-num">02</div>
+          <div class="proceso-label">Relevamiento técnico</div>
+          <div class="proceso-desc">Visitamos el espacio y relevamos medidas, condiciones y necesidades del cliente.</div>
+        </div>
+        <div class="proceso-step">
+          <div class="proceso-num">03</div>
+          <div class="proceso-label">Ingeniería de detalle</div>
+          <div class="proceso-desc">Documentamos cada decisión técnica, realizamos los planos productivos de fabricación e instalación.</div>
+        </div>
+        <div class="proceso-step">
+          <div class="proceso-num">04</div>
+          <div class="proceso-label">Fabricación</div>
+          <div class="proceso-desc">Producción 100% propia en nuestra planta de Martínez.</div>
+        </div>
+        <div class="proceso-step">
+          <div class="proceso-num">05</div>
+          <div class="proceso-label">Control de calidad</div>
+          <div class="proceso-desc">Se presenta el proyecto de manera completa. El cliente lo aprueba y realiza modificaciones de ser necesarias.</div>
+        </div>
+        <div class="proceso-step">
+          <div class="proceso-num">06</div>
+          <div class="proceso-label">Instalación</div>
+          <div class="proceso-desc">Nuestro equipo instala y supervisa hasta que el resultado sea exactamente el acordado.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <div class="portfolio-header">
+      <div>
+        <p class="section-eyebrow">Portfolio</p>
+        <h2 class="section-title">Algunos de<br/>nuestros trabajos</h2>
+      </div>
+      <a href="proyectos.html" class="btn-secondary">Ver todos los proyectos</a>
+    </div>
+    <div class="portfolio-carousel-wrap">
+      <button class="portfolio-carousel-btn prev" id="pPrev" onclick="portfolioNav(-1)">&#8592;</button>
+      <button class="portfolio-carousel-btn next" id="pNext" onclick="portfolioNav(1)">&#8594;</button>
+      <div class="portfolio-track-wrap">
+    <div class="portfolio-grid" id="portfolioGrid">
+      <div class="portfolio-item" onclick='openLightbox("Pirovano","Cocina a medida · 2024",["PIROVANO/IMG_0187.jpg","PIROVANO/IMG_9858.jpg","PIROVANO/_MG_7992 (1).JPG","PIROVANO/_MG_8232 (1).JPG","PIROVANO/_MG_8233.JPG","PIROVANO/_MG_8306.JPG","PIROVANO/_MG_8313 (1).JPG"])'>
+        <div class="portfolio-item-bg">
+          <img src="PIROVANO/IMG_0187.jpg" alt="Proyecto Pirovano" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Pirovano</h3>
+            <p>Cocina a medida · 2024</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("El Trébol","Cocina a medida · 2024",["EL TREBOL/acr trebol-023.jpg","EL TREBOL/acr trebol-025.jpg","EL TREBOL/acr trebol-026.jpg","EL TREBOL/acr trebol-028.jpg","EL TREBOL/acr trebol-034.jpg","EL TREBOL/acr trebol-038.jpg","EL TREBOL/acr trebol-039.jpg","EL TREBOL/acr trebol-041.jpg","EL TREBOL/acr trebol-043.jpg","EL TREBOL/acr trebol-044.jpg","EL TREBOL/acr trebol-050.jpg","EL TREBOL/acr trebol-105.jpg","EL TREBOL/acr trebol-107.jpg","EL TREBOL/acr trebol-111.jpg","EL TREBOL/acr trebol-134.jpg","EL TREBOL/acr trebol-135.jpg","EL TREBOL/acr trebol-136.jpg","EL TREBOL/acr trebol-139.jpg","EL TREBOL/acr trebol-140.jpg","EL TREBOL/acr trebol-141.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="EL TREBOL/acr trebol-023.jpg" alt="Proyecto El Trébol" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>El Trébol</h3>
+            <p>Cocina a medida · 2024</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Martindale","Cocina clásica · 2024",["MARTINDALE/IMG_9837 2.jpg","MARTINDALE/IMG_9879.jpg","MARTINDALE/IMG_9882 2.jpg","MARTINDALE/IMG_9892.jpg","MARTINDALE/IMG_9967 2.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="MARTINDALE/IMG_9837 2.jpg" alt="Proyecto Martindale" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Martindale</h3>
+            <p>Cocina clásica · 2024</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Santa Bárbara","Vestidor · 2022",["SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM.jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM (2).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM.jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.04 AM (1).jpeg","SANTA BARBARA/WhatsApp Image 2022-08-01 at 9.04.05 AM.jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="SANTA BARBARA/WhatsApp Image 2022-07-28 at 11.37.09 PM.jpeg" alt="Proyecto Santa Bárbara" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Santa Bárbara</h3>
+            <p>Vestidor · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Sucre","Cocina a medida · 2023",["SUCRE/IMG_4121.jpg","SUCRE/IMG_4151.jpg","SUCRE/IMG_4194.jpg","SUCRE/IMG_4211.jpg","SUCRE/IMG_4259-2.jpg","SUCRE/_MG_7405.JPG","SUCRE/_MG_7408.JPG","SUCRE/_MG_7424.JPG","SUCRE/_MG_7438.JPG"])'>
+        <div class="portfolio-item-bg">
+          <img src="SUCRE/IMG_4121.jpg" alt="Proyecto Sucre" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Sucre</h3>
+            <p>Cocina a medida · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("San Jorge I","Mueble a medida · 2022",["SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM (3).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM.jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (1).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (2).jpeg","SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.52 AM (4).jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="SAN JORGE I/WhatsApp Image 2022-08-01 at 8.52.51 AM.jpeg" alt="Proyecto San Jorge I" style="object-position: center 30%;" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>San Jorge I</h3>
+            <p>Mueble a medida · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Laprida","Cocina a medida · 2022",["LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (4).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.15 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (1).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (2).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (3).jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.17 PM.jpeg","LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.17 PM (1).jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="LAPRIDA/WhatsApp Image 2022-07-27 at 8.33.16 PM (4).jpeg" alt="Proyecto Laprida" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Laprida</h3>
+            <p>Cocina a medida · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Alto Perú","Cocina a medida · 2023",["ALTO PERU/DSC_2098.JPG","ALTO PERU/DSC_2142.JPG","ALTO PERU/DSC_2217.JPG","ALTO PERU/DSC_2225.JPG","ALTO PERU/DSC_2227.JPG","ALTO PERU/DSC_2229.JPG","ALTO PERU/DSC_2252.JPG","ALTO PERU/DSC_2254.jpg","ALTO PERU/52D3145A-AC5B-400F-A799-41E561DD90BC_1_105_c.jpeg","ALTO PERU/B6FE1C5B-4A5E-4B5A-A290-504360DB1E36_1_105_c.jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="ALTO PERU/DSC_2098.JPG" alt="Proyecto Alto Perú" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Alto Perú</h3>
+            <p>Cocina a medida · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Barbarita","Cocina a medida · 2022",["BARBARITA/BARBARITA.jpeg","BARBARITA/BARBARITA (2).jpeg","BARBARITA/BARBARITA (3).jpeg","BARBARITA/BARBARITA (4).jpeg","BARBARITA/0b45557f-56c6-49fd-8325-4f7d431f7f98.jpg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.02 PM.jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.03 PM (1).jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.37 PM.jpeg","BARBARITA/WhatsApp Image 2022-07-27 at 8.33.38 PM.jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="BARBARITA/BARBARITA.jpeg" alt="Proyecto Barbarita" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Barbarita</h3>
+            <p>Cocina a medida · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Las Heras","Muebles de diseño · 2023",["LAS HERAS/ACR Studio S01 © Fede Paul 053.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 054.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 055.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 056.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 057.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 058.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 059.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 060.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 061.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 062.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 063.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 064.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 065.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 066.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 067.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 068.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 069.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 070.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 071.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 072.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 073.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 074.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 075.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 076.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 077.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 078.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 079.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 080.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 081.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 082.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 083.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 084.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 085.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 086.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 087.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 088.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 089.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 090.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 091.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 092.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 093.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 094.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 095.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 096.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 097.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 098.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 099.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 100.jpg","LAS HERAS/ACR Studio S01 © Fede Paul 101.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="LAS HERAS/ACR Studio S01 © Fede Paul 053.jpg" alt="Proyecto Las Heras" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Las Heras</h3>
+            <p>Muebles de diseño · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Manzanares","Cocina a medida · 2023",["MANZANARES/_MG_6639.JPG","MANZANARES/_MG_6666.JPG","MANZANARES/_MG_6768.JPG","MANZANARES/_MG_6805.JPG","MANZANARES/_MG_6933.JPG","MANZANARES/_MG_6941.JPG","MANZANARES/IMG_8876.jpg","MANZANARES/IMG_8972.jpg","MANZANARES/IMG_8989.jpg","MANZANARES/IMG_8991.jpg","MANZANARES/IMG_8995.jpg","MANZANARES/IMG_9112.jpg","MANZANARES/IMG_0153.JPG","MANZANARES/IMG_0154.JPG","MANZANARES/isla.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="MANZANARES/_MG_6639.JPG" alt="Proyecto Manzanares" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Manzanares</h3>
+            <p>Cocina a medida · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Pinguinos CC","Cocina a medida · 2023",["PINGUINOS CC/IMG_2817.jpg","PINGUINOS CC/IMG_2819.jpg","PINGUINOS CC/IMG_2821.jpg","PINGUINOS CC/IMG_2822.jpg","PINGUINOS CC/IMG_2829.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="PINGUINOS CC/IMG_2817.jpg" alt="Proyecto Pinguinos CC" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Pinguinos CC</h3>
+            <p>Cocina a medida · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("San Sebastián","Cocina a medida · 2022",["SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM.jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (1).jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (2).jpeg","SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM (3).jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="SAN SEBASTIAN/WhatsApp Image 2022-07-29 at 5.00.15 PM.jpeg" alt="Proyecto San Sebastián" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>San Sebastián</h3>
+            <p>Cocina a medida · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Vicente López I","Vestidor · 2022",["VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (1).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM (2).jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM.jpeg","VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.30.18 PM (1).jpeg"])'>
+        <div class="portfolio-item-bg">
+          <img src="VICENTE LOPEZ I/WhatsApp Image 2022-07-28 at 11.28.35 PM.jpeg" alt="Proyecto Vicente López I" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Vicente López I</h3>
+            <p>Vestidor · 2022</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+      <div class="portfolio-item" onclick='openLightbox("Colegio Copello","Proyecto comercial · 2023",["COLEGIO COPELLO/IMG_3449.jpg","COLEGIO COPELLO/IMG_3510.jpg","COLEGIO COPELLO/IMG_3566.jpg","COLEGIO COPELLO/IMG_3580.jpg","COLEGIO COPELLO/IMG_3589.jpg","COLEGIO COPELLO/IMG_3592.jpg","COLEGIO COPELLO/IMG_3593.jpg","COLEGIO COPELLO/IMG_3605.jpg","COLEGIO COPELLO/IMG_3609.jpg","COLEGIO COPELLO/IMG_3610.jpg","COLEGIO COPELLO/IMG_3612.jpg","COLEGIO COPELLO/IMG_3613.jpg","COLEGIO COPELLO/IMG_3614.jpg","COLEGIO COPELLO/IMG_3615.jpg","COLEGIO COPELLO/IMG_3617.jpg","COLEGIO COPELLO/IMG_3618.jpg","COLEGIO COPELLO/IMG_3642.jpg","COLEGIO COPELLO/IMG_3668.jpg","COLEGIO COPELLO/IMG_3712.jpg","COLEGIO COPELLO/IMG_3722.jpg"])'>
+        <div class="portfolio-item-bg">
+          <img src="COLEGIO COPELLO/IMG_3449.jpg" alt="Colegio Copello" />
+        </div>
+        <div class="portfolio-overlay">
+          <div class="portfolio-info">
+            <h3>Colegio Copello</h3>
+            <p>Proyecto comercial · 2023</p>
+          </div>
+        </div>
+        <div class="portfolio-icon">↗</div>
+      </div>
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <div class="nosotros-content" style="max-width:760px;">
+      <p class="section-eyebrow">Quiénes somos</p>
+      <h2 class="section-title">Creamos muebles a medida. Diseñamos experiencias de principio a fin.</h2>
+      <div class="divider"></div>
+      <p class="nosotros-body">
+        En Inercia entendemos que un proyecto de mobiliario es mucho más que fabricar muebles. Es acompañar a una persona o a una empresa durante un proceso importante, donde la comunicación, el cumplimiento y la confianza son tan importantes como la calidad del producto final.
+      </p>
+      <p class="nosotros-body" style="margin-top: 16px;">
+        Por eso trabajamos para que cada cliente viva una experiencia ordenada, clara y previsible. Creemos que un buen servicio significa responder, cumplir los compromisos asumidos, anticipar problemas y estar presentes en cada etapa del proyecto.
+      </p>
+      <p class="nosotros-body" style="margin-top: 16px;">
+        Nuestro objetivo no es únicamente entregar un mueble impecable. Buscamos que el camino para llegar a él sea igual de satisfactorio.
+      </p>
+      <p class="nosotros-body" style="margin-top: 16px; font-style: italic; color: var(--accent);">
+        Porque entendemos que la verdadera calidad no está solo en lo que fabricamos, sino también en cómo hacemos sentir a quienes confían en nosotros.
+      </p>
+      <div class="nosotros-stats">
+        <div>
+          <div class="stat-num">+40</div>
+          <div class="stat-label">Personas en el equipo</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Proyectos a medida</div>
+        </div>
+        <div>
+          <div class="stat-num">237</div>
+          <div class="stat-label">Proyectos ejecutados</div>
+        </div>
+        <div>
+          <div class="stat-num">ARG</div>
+          <div class="stat-label">Fabricación nacional</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <p class="section-eyebrow">Lo que dicen nuestros clientes</p>
+    <h2 class="section-title">Testimonios</h2>
+    <div class="testimonios-carousel">
+      <button class="testimonios-carousel-btn prev" id="tPrev" onclick="testimoniosNav(-1)">&#8592;</button>
+      <button class="testimonios-carousel-btn next" id="tNext" onclick="testimoniosNav(1)">&#8594;</button>
+      <div class="testimonios-track-wrap">
+    <div class="testimonios-grid" id="testimoniosGrid">
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">La experiencia de trabajar con Inercia fue muy positiva. Destacaría principalmente el cumplimiento de los plazos, el seguimiento permanente de la obra y la supervisión por parte del equipo durante todo el proceso. Además, fue muy valioso recibir la ingeniería de detalle con anticipación, ya que nos permitió revisar el proyecto, hacer distintos ajustes y encontrar mejoras antes de la fabricación. Eso hizo que el resultado final fuera incluso mejor de lo que habíamos imaginado.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Luis Perri</span>
+          <span class="testimonio-obra">Perri Construcciones</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Nuestra experiencia con Inercia fue excelente. Muy profesionales tanto en materia de la muy buena calidad de sus trabajos como en el cumplimiento de plazos acordados. Usan buenos materiales.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Carlos Darmandrail, Ing. — Presidente</span>
+          <span class="testimonio-obra">Zanara S.A.</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Trabajar con Inercia es sinónimo de eficiencia y confianza. Su metodología de trabajo los distingue y se refleja en cada etapa del proceso. Siempre muestran una excelente predisposición para trabajar en equipo y encontrar soluciones. Un verdadero placer contar con ellos como proveedor.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Augusto Soldati</span>
+          <span class="testimonio-obra">Sureniio</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Desde el primer encuentro demostraron profesionalismo, conocimiento técnico y un gran compromiso con el proyecto, respetando siempre la propuesta arquitectónica y aportando sugerencias que enriquecieron el resultado final. Valoro especialmente la atención al detalle, la comunicación clara durante todo el proceso y la disposición permanente para resolver consultas, siempre verificando cada decisión antes de ejecutarla. La persona a cargo del proyecto mantuvo un conocimiento detallado de cada aspecto del mobiliario desde el inicio hasta la instalación, brindando seguridad y confianza en todo momento. Sin dudas, un equipo en el que se puede confiar para llevar adelante proyectos con precisión, compromiso y excelencia.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Luciana Vio</span>
+          <span class="testimonio-obra">Arquitecta</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Queremos destacar el excelente trabajo realizado por Inercia en la fabricación e instalación de nuestros muebles de cocina y vestidores. Desde el primer contacto demostraron un gran nivel de profesionalismo, asesorándonos en cada etapa del proyecto y ofreciendo soluciones acordes a nuestras necesidades. La calidad de los materiales, la terminación de los muebles y la atención al detalle superaron nuestras expectativas. Además, cumplieron con los plazos acordados y mantuvieron una comunicación clara y cordial durante todo el proceso. Estamos muy conformes con el resultado final y recomendamos a Inercia a quienes busquen diseño, calidad y seriedad en la realización de muebles a medida.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Sebastián Loscri</span>
+          <span class="testimonio-obra">Loscri Construcciones</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Hace más de tres años que convivimos todos los días con los muebles que hizo Inercia para nuestra casa y la experiencia ha sido excelente. Más allá de lo lindos que quedaron, lo que más valoramos es que con el paso del tiempo siguen funcionando perfecto y no hemos tenido ningún inconveniente. Se nota la calidad y el cuidado con el que fueron hechos. Los volveríamos a elegir sin dudarlo.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Regina Bracco</span>
+          <span class="testimonio-obra">Clienta</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Transforma ideas en realidad. Les llevé hace un tiempo el boceto de un bote para colgarlo desde el techo de unas oficinas corporativas. A los pocos días la tenían fabricada y lista para montar. Valoro y recomiendo por su calidez, creatividad, dedicación y sobre todo en este rubro el cumplimiento de los plazos pactados.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Juan Carlos Rojo</span>
+          <span class="testimonio-obra">Emprec S.A.</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Buenísimo el asesoramiento y comunicación en la etapa de diseño. Excelente cumplimiento de plazos de entrega y colocación. Muy buen servicio de post venta. Quedaron espectacular, ¡gracias Ivan, Rochi y equipo!</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Alejandra Carregal</span>
+          <span class="testimonio-obra">Clienta</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">¡Estoy disfrutando mucho mi cocina! ¡Impecable su trabajo! Todas las terminaciones súper prolijas.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Guadalupe Diez</span>
+          <span class="testimonio-obra">Obra Laprida</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">Como arquitecta, es un placer trabajar con Inercia. Destaco su profesionalismo, la atención a cada detalle y el compromiso con el que encaran cada proyecto. Siempre están presentes durante todo el proceso, interpretando las necesidades del cliente y del profesional, con una cercanía y dedicación que hacen la diferencia. La calidad de sus muebles y terminaciones se refleja en cada trabajo. Sin dudas, son un equipo en el que confío plenamente.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Josefina Gismondi</span>
+          <span class="testimonio-obra">Arquitecta</span>
+        </div>
+      </div>
+
+      <div class="testimonio-card">
+        <span class="testimonio-comilla">"</span>
+        <p class="testimonio-texto">La experiencia fue óptima de punta a punta. El proceso de hacerte una casa tiene muchas aristas y cuando llega el momento de la carpintería, es fundamental tener un equipo en el cual delegar y sobre todo confiar. La calidad de las terminaciones y sobre todo el servicio hacen que todo valga la pena.</p>
+        <button class="testimonio-leer-mas" onclick="toggleTestimonio(this)">Leer más ↓</button>
+        <div class="testimonio-autor">
+          <span class="testimonio-nombre">Miguel Schmukler</span>
+          <span class="testimonio-obra">Cliente</span>
+        </div>
+      </div>
+
+    </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="contacto-inner">
+      <div>
+        <p class="section-eyebrow">Contacto</p>
+        <h2 class="section-title">Coordinemos<br/>una visita</h2>
+        <div class="divider"></div>
+        <p style="font-size: 15px; color: var(--gray); font-weight: 300; line-height: 1.7;">
+          Coordinamos una visita o videollamada sin cargo para evaluar juntos tu proyecto. Sin compromiso.
+        </p>
+        <div class="contacto-info-block">
+          <div class="contacto-info-item">
+            <span class="contacto-info-label">Email</span>
+            <a href="mailto:info@inerciaba.com" class="contacto-info-value">info@inerciaba.com</a>
+          </div>
+          <div class="contacto-info-item">
+            <span class="contacto-info-label">WhatsApp</span>
+            <a href="https://wa.me/5491138745762" target="_blank" class="contacto-info-value" style="display:flex;align-items:center;gap:10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#8B6F47" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.126.558 4.121 1.533 5.851L.057 23.428a.75.75 0 00.921.921l5.578-1.476A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.713 9.713 0 01-4.953-1.355l-.355-.211-3.676.972.986-3.607-.232-.372A9.718 9.718 0 012.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+              </svg>
+              +54 9 11 3874-5762
+            </a>
+          </div>
+          <div class="contacto-info-item">
+            <span class="contacto-info-label">Instagram</span>
+            <a href="https://instagram.com/inercia.ba" target="_blank" class="contacto-info-value" style="display:flex;align-items:center;gap:10px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#8B6F47"/>
+                    <stop offset="25%" style="stop-color:#8B6F47"/>
+                    <stop offset="50%" style="stop-color:#8B6F47"/>
+                    <stop offset="75%" style="stop-color:#8B6F47"/>
+                    <stop offset="100%" style="stop-color:#8B6F47"/>
+                  </linearGradient>
+                </defs>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="url(#ig-grad)"/>
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none"/>
+                <circle cx="17.2" cy="6.8" r="1.2" fill="white"/>
+              </svg>
+              @inercia.ba
+            </a>
+          </div>
+          <div class="contacto-info-item">
+            <span class="contacto-info-label">Zona de trabajo</span>
+            <span class="contacto-info-value">CABA y Gran Buenos Aires</span>
+          </div>
+        </div>
+      </div>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="tu@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="servicio">¿Qué necesitás?</label>
+          <select id="servicio">
+            <option value="">Seleccioná un servicio</option>
+            <option value="cocina">Cocina a medida</option>
+            <option value="vestidor">Vestidor</option>
+            <option value="mueble">Mueble de diseño</option>
+            <option value="otro">Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" placeholder="Contanos sobre tu proyecto, espacio disponible, ideas..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Enviar consulta</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="Logo_inercia_1_t.png" alt="Inercia" />
+    </div>
+    <div class="footer-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajamos</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2026 Inercia. Todos los derechos reservados.</div>
+  </footer>
+
+  <script>
+    // Lightbox
+    // ── PORTFOLIO CAROUSEL ──
+    let pIndex = 0;
+    const pVisible = 3;
+
+    function portfolioNav(dir) {
+      const grid = document.getElementById('portfolioGrid');
+      const cards = grid.querySelectorAll('.portfolio-item');
+      const total = cards.length;
+      const maxIndex = total - pVisible;
+      pIndex = Math.max(0, Math.min(pIndex + dir, maxIndex));
+      const cardW = cards[0].offsetWidth + 12;
+      grid.style.transform = `translateX(-${pIndex * cardW}px)`;
+      document.getElementById('pPrev').disabled = pIndex === 0;
+      document.getElementById('pNext').disabled = pIndex >= maxIndex;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('pPrev').disabled = true;
+    });
+
+    // ── LEER MÁS ──
+    function toggleTestimonio(btn) {
+      const texto = btn.previousElementSibling;
+      const expanded = texto.classList.toggle('expanded');
+      btn.textContent = expanded ? 'Leer menos ↑' : 'Leer más ↓';
+    }
+
+    // ── TESTIMONIOS CAROUSEL ──
+    let tIndex = 0;
+    const tVisible = 3;
+
+    function testimoniosNav(dir) {
+      const grid = document.getElementById('testimoniosGrid');
+      const cards = grid.querySelectorAll('.testimonio-card');
+      const total = cards.length;
+      const maxIndex = total - tVisible;
+      tIndex = Math.max(0, Math.min(tIndex + dir, maxIndex));
+      const cardW = cards[0].offsetWidth + 32; // card width + gap
+      grid.style.transform = `translateX(-${tIndex * cardW}px)`;
+      document.getElementById('tPrev').disabled = tIndex === 0;
+      document.getElementById('tNext').disabled = tIndex >= maxIndex;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('tPrev').disabled = true;
+    });
+
+    let lbImages = [], lbIndex = 0;
+
+    function openLightbox(title, meta, images) {
+      lbImages = images;
+      lbIndex = 0;
+      document.getElementById('lb-title').textContent = title;
+      document.getElementById('lb-meta').textContent = meta;
+      buildThumbs();
+      showImage(0);
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showImage(i) {
+      lbIndex = (i + lbImages.length) % lbImages.length;
+      document.getElementById('lb-img').src = lbImages[lbIndex];
+      document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + lbImages.length;
+      document.querySelectorAll('.lightbox-thumb').forEach((t, idx) => {
+        t.classList.toggle('active', idx === lbIndex);
+      });
+      // Scroll thumb into view
+      const thumb = document.querySelectorAll('.lightbox-thumb')[lbIndex];
+      if (thumb) thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    function lbNav(dir) { showImage(lbIndex + dir); }
+
+    function buildThumbs() {
+      const wrap = document.getElementById('lb-thumbs');
+      wrap.innerHTML = lbImages.map((src, i) =>
+        `<img class="lightbox-thumb" src="${src}" onclick="showImage(${i})" />`
+      ).join('');
+    }
+
+    // Close on overlay click
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('active')) return;
+      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Form submit
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn-submit');
+      btn.textContent = '¡Mensaje enviado!';
+      btn.style.background = '#8B6F47';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = 'Enviar consulta';
+        btn.style.background = '';
+        btn.disabled = false;
+        e.target.reset();
+      }, 3000);
+    }
+
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.service-card, .portfolio-item, .stat-num').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

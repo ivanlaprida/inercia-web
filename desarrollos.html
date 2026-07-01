@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desarrollos — Inercia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111111;
+      --white: #FAFAF8;
+      --gray: #6B6B6B;
+      --light-gray: #E8E6E0;
+      --warm: #C4A882;
+      --accent: #8B6F47;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 60px;
+      background: rgba(17,17,17,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #222;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      height: 56px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .nav-logo img {
+      width: 96px;
+      height: auto;
+      margin-left: -26px;
+      margin-top: -18px;
+      filter: invert(1);
+    }
+
+    .nav-logo span {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--white);
+      margin-left: 10px;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-back {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-back:hover { color: var(--white); }
+
+    .nav-download {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--warm);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      padding: 8px 20px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-download:hover {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    /* HERO */
+    .dev-hero {
+      padding-top: 56px;
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 60px;
+      padding-left: 80px;
+      padding-right: 80px;
+      border-bottom: 1px solid #222;
+    }
+
+    .dev-hero p {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 20px;
+    }
+
+    .dev-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      max-width: 700px;
+      margin-bottom: 24px;
+    }
+
+    .dev-hero .desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: #888;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* PÁGINAS */
+    .dev-pages {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 40px 100px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dev-page {
+      width: 100%;
+      display: block;
+      line-height: 0;
+    }
+
+    .dev-page img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* CONTACTO CTA */
+    .dev-cta {
+      border-top: 1px solid #222;
+      padding: 80px;
+      text-align: center;
+    }
+
+    .dev-cta p {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 20px;
+    }
+
+    .dev-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 400;
+      margin-bottom: 40px;
+      color: var(--white);
+    }
+
+    .dev-cta a {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--accent);
+      padding: 16px 40px;
+      border-radius: 2px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dev-cta a:hover { background: var(--warm); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div style="width:30px;height:28px;overflow:hidden;flex-shrink:0;">
+        <img src="Logo_inercia_1_t.png" alt="Inercia" />
+      </div>
+      <span>INERCIA</span>
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-back">← Volver al inicio</a>
+      <a href="INERCIA - DESARROLLOS.pdf" download class="nav-download">↓ Descargar PDF</a>
+    </div>
+  </nav>
+
+  <div class="dev-hero">
+    <p>Desarrollos inmobiliarios</p>
+    <h1>Equipamos proyectos completos, desde el diseño hasta la instalación.</h1>
+    <p class="desc">Trabajamos con desarrolladores inmobiliarios en proyectos residenciales, comerciales y corporativos de cualquier escala.</p>
+  </div>
+
+  <div class="dev-pages">
+    <div class="dev-page"><img src="DESARROLLOS/page-01.jpg" alt="Desarrollos Inercia - página 1" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-02.jpg" alt="Desarrollos Inercia - página 2" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-03.jpg" alt="Desarrollos Inercia - página 3" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-04.jpg" alt="Desarrollos Inercia - página 4" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-05.jpg" alt="Desarrollos Inercia - página 5" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-06.jpg" alt="Desarrollos Inercia - página 6" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-07.jpg" alt="Desarrollos Inercia - página 7" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-08.jpg" alt="Desarrollos Inercia - página 8" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-09.jpg" alt="Desarrollos Inercia - página 9" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-10.jpg" alt="Desarrollos Inercia - página 10" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-11.jpg" alt="Desarrollos Inercia - página 11" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-12.jpg" alt="Desarrollos Inercia - página 12" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-13.jpg" alt="Desarrollos Inercia - página 13" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-14.jpg" alt="Desarrollos Inercia - página 14" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-15.jpg" alt="Desarrollos Inercia - página 15" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-16.jpg" alt="Desarrollos Inercia - página 16" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-17.jpg" alt="Desarrollos Inercia - página 17" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-18.jpg" alt="Desarrollos Inercia - página 18" /></div>
+    <div class="dev-page"><img src="DESARROLLOS/page-19.jpg" alt="Desarrollos Inercia - página 19" /></div>
+  </div>
+
+  <div class="dev-cta">
+    <p>¿Tenés un proyecto?</p>
+    <h2>Hablemos de tu desarrollo</h2>
+    <a href="index.html#contacto">Contactanos</a>
+  </div>
+
+</body>
+</html>
