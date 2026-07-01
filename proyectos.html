@@ -297,6 +297,19 @@
       color: rgba(255,255,255,0.4);
       letter-spacing: 0.1em;
     }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .page-header { padding: 88px 24px 40px; }
+      .proyectos-grid { grid-template-columns: 1fr 1fr; padding: 0 24px 64px; gap: 8px; }
+      .proyecto-item { height: 44vw; }
+    }
+
+    @media (max-width: 540px) {
+      .proyectos-grid { grid-template-columns: 1fr; }
+      .proyecto-item { height: 72vw; }
+    }
   </style>
 </head>
 <body>

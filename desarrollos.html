@@ -366,6 +366,38 @@
     }
 
     .dev-cta a:hover { background: var(--warm); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+
+      .dev-hero { padding: 80px 24px 56px; min-height: auto; }
+
+      .stats { grid-template-columns: 1fr; }
+      .stat { padding: 36px 24px; border-right: none; border-bottom: 1px solid #222; }
+      .stat:last-child { border-bottom: none; }
+
+      .dev-intro { padding: 48px 24px; grid-template-columns: 1fr; gap: 24px; }
+
+      .projects-header { padding: 36px 24px; flex-direction: column; align-items: flex-start; gap: 8px; }
+
+      .project {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .project-photo { height: 60vw; min-height: 240px; }
+      .project.reverse .project-photo { grid-column: 1; grid-row: 1; }
+      .project.reverse .project-info  { grid-column: 1; grid-row: 2; }
+      .project-info { padding: 40px 24px; }
+      .project-num { font-size: 56px; }
+
+      .dev-cta { padding: 64px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .dev-hero h1 { font-size: 30px; }
+      .project-photo { height: 72vw; }
+    }
   </style>
 </head>
 <body>
