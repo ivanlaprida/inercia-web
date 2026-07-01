@@ -107,72 +107,236 @@
     /* HERO */
     .dev-hero {
       padding-top: 56px;
-      min-height: 40vh;
+      min-height: 52vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding-bottom: 60px;
+      padding-bottom: 80px;
       padding-left: 80px;
       padding-right: 80px;
       border-bottom: 1px solid #222;
     }
 
-    .dev-hero p {
+    .dev-hero .eyebrow {
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--warm);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .dev-hero h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(32px, 4vw, 52px);
+      font-size: clamp(36px, 5vw, 64px);
       font-weight: 400;
-      line-height: 1.1;
-      max-width: 700px;
-      margin-bottom: 24px;
+      line-height: 1.08;
+      max-width: 800px;
+      margin-bottom: 28px;
     }
 
     .dev-hero .desc {
       font-size: 16px;
       font-weight: 300;
       color: #888;
-      max-width: 560px;
+      max-width: 520px;
       line-height: 1.7;
     }
 
-    /* PÁGINAS */
-    .dev-pages {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 60px 40px 100px;
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid #222;
+    }
+
+    .stat {
+      padding: 52px 80px;
+      border-right: 1px solid #222;
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 4vw, 60px);
+      font-weight: 400;
+      color: var(--warm);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* INTRO */
+    .dev-intro {
+      padding: 80px;
+      border-bottom: 1px solid #222;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .dev-intro-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm);
+      padding-top: 4px;
+    }
+
+    .dev-intro-text p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #aaa;
+      margin-bottom: 20px;
+    }
+
+    .dev-intro-text p:last-child { margin-bottom: 0; }
+
+    .dev-intro-text em {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--warm);
+      font-size: 17px;
+    }
+
+    /* PROJECTS HEADER */
+    .projects-header {
+      padding: 52px 80px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .projects-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2vw, 28px);
+      font-weight: 400;
+      color: var(--white);
+    }
+
+    .projects-header span {
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* PROJECTS */
+    .project {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 540px;
+      border-bottom: 1px solid #222;
+    }
+
+    .project.reverse .project-photo { grid-column: 2; grid-row: 1; }
+    .project.reverse .project-info  { grid-column: 1; grid-row: 1; }
+
+    .project-photo {
+      overflow: hidden;
+      position: relative;
+      background: #1a1a1a;
+    }
+
+    .project-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .project:hover .project-photo img {
+      transform: scale(1.04);
+    }
+
+    .project-info {
+      padding: 60px 70px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      justify-content: center;
+      background: var(--black);
     }
 
-    .dev-page {
-      width: 100%;
-      display: block;
-      line-height: 0;
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      font-weight: 400;
+      color: #1e1e1e;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -3px;
     }
 
-    .dev-page img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .project-client {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--warm);
+      margin-bottom: 14px;
     }
 
-    /* CONTACTO CTA */
+    .project-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2vw, 30px);
+      font-weight: 400;
+      margin-bottom: 8px;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .project-addr {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--gray);
+      margin-bottom: 36px;
+      letter-spacing: 0.04em;
+    }
+
+    .project-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      margin-bottom: 32px;
+    }
+
+    .project-units {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+
+    .project-scope {
+      font-size: 15px;
+      font-weight: 300;
+      color: #bbb;
+      line-height: 1.65;
+    }
+
+    /* CTA */
     .dev-cta {
       border-top: 1px solid #222;
-      padding: 80px;
+      padding: 100px 80px;
       text-align: center;
     }
 
-    .dev-cta p {
+    .dev-cta .eyebrow {
       font-size: 11px;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -182,21 +346,28 @@
 
     .dev-cta h2 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(24px, 3vw, 38px);
+      font-size: clamp(28px, 3vw, 42px);
       font-weight: 400;
-      margin-bottom: 40px;
+      margin-bottom: 12px;
       color: var(--white);
+    }
+
+    .dev-cta p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray);
+      margin-bottom: 44px;
     }
 
     .dev-cta a {
       display: inline-block;
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--white);
       background: var(--accent);
-      padding: 16px 40px;
+      padding: 18px 48px;
       border-radius: 2px;
       text-decoration: none;
       transition: background 0.2s;
@@ -220,37 +391,178 @@
     </div>
   </nav>
 
+  <!-- HERO -->
   <div class="dev-hero">
-    <p>Desarrollos inmobiliarios</p>
+    <p class="eyebrow">Desarrollos inmobiliarios · Buenos Aires, Argentina</p>
     <h1>Equipamos proyectos completos, desde el diseño hasta la instalación.</h1>
     <p class="desc">Trabajamos con desarrolladores inmobiliarios en proyectos residenciales, comerciales y corporativos de cualquier escala.</p>
   </div>
 
-  <div class="dev-pages">
-    <div class="dev-page"><img src="DESARROLLOS/page-01.jpg" alt="Desarrollos Inercia - página 1" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-02.jpg" alt="Desarrollos Inercia - página 2" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-03.jpg" alt="Desarrollos Inercia - página 3" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-04.jpg" alt="Desarrollos Inercia - página 4" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-05.jpg" alt="Desarrollos Inercia - página 5" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-06.jpg" alt="Desarrollos Inercia - página 6" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-07.jpg" alt="Desarrollos Inercia - página 7" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-08.jpg" alt="Desarrollos Inercia - página 8" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-09.jpg" alt="Desarrollos Inercia - página 9" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-10.jpg" alt="Desarrollos Inercia - página 10" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-11.jpg" alt="Desarrollos Inercia - página 11" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-12.jpg" alt="Desarrollos Inercia - página 12" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-13.jpg" alt="Desarrollos Inercia - página 13" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-14.jpg" alt="Desarrollos Inercia - página 14" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-15.jpg" alt="Desarrollos Inercia - página 15" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-16.jpg" alt="Desarrollos Inercia - página 16" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-17.jpg" alt="Desarrollos Inercia - página 17" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-18.jpg" alt="Desarrollos Inercia - página 18" /></div>
-    <div class="dev-page"><img src="DESARROLLOS/page-19.jpg" alt="Desarrollos Inercia - página 19" /></div>
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Desarrollos ejecutados</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">221</div>
+      <div class="stat-label">Unidades equipadas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Entregados en tiempo</div>
+    </div>
   </div>
 
+  <!-- INTRO -->
+  <div class="dev-intro">
+    <div class="dev-intro-label">Sobre Inercia</div>
+    <div class="dev-intro-text">
+      <p>En Inercia transformamos las ideas y diseños en espacios únicos y funcionales. Inspirados en el sistema de producción de Toyota, implementamos procesos eficientes y precisos que garantizan no solo la más alta calidad en cada proyecto, sino también el cumplimiento puntual de los tiempos acordados.</p>
+      <p>Con 6 años de experiencia y un equipo propio compuesto por más de 20 personas, hemos logrado consolidarnos en el mercado como referentes en el diseño, fabricación e instalación de muebles a medida.</p>
+      <p><em>En cada proyecto, nuestro compromiso es ofrecer soluciones personalizadas y una experiencia de servicio inigualable.</em></p>
+    </div>
+  </div>
+
+  <!-- PROJECTS HEADER -->
+  <div class="projects-header">
+    <h2>Proyectos ejecutados</h2>
+    <span>8 desarrollos · CABA y GBA</span>
+  </div>
+
+  <!-- PROJECT 01 -->
+  <div class="project">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-04.jpg" alt="Urbana Las Lomas" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">01</div>
+      <div class="project-client">ARG REALTY</div>
+      <h3 class="project-name">Urbana Las Lomas</h3>
+      <p class="project-addr">Sucre 2257, San Isidro</p>
+      <div class="project-divider"></div>
+      <p class="project-units">32 unidades</p>
+      <p class="project-scope">Cocinas a medida para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 02 -->
+  <div class="project reverse">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-06.jpg" alt="Juncal" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">02</div>
+      <div class="project-client">GRUPO HEXAGONO</div>
+      <h3 class="project-name">Juncal</h3>
+      <p class="project-addr">Juncal 4648, CABA</p>
+      <div class="project-divider"></div>
+      <p class="project-units">25 unidades</p>
+      <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 03 -->
+  <div class="project">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-08.jpg" alt="Green Housing" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">03</div>
+      <div class="project-client">PERRI CONSTRUCCIONES</div>
+      <h3 class="project-name">Green Housing</h3>
+      <p class="project-addr">La Pampa 3434, CABA</p>
+      <div class="project-divider"></div>
+      <p class="project-units">9 casas</p>
+      <p class="project-scope">Cocinas, placards, vestidores y baños para todas las casas del complejo.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 04 -->
+  <div class="project reverse">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-10.jpg" alt="Tres Sargentos" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">04</div>
+      <div class="project-client">ESTUDIO RUDA</div>
+      <h3 class="project-name">Tres Sargentos</h3>
+      <p class="project-addr">Tres Sargentos 2150, Martínez</p>
+      <div class="project-divider"></div>
+      <p class="project-units">12 unidades</p>
+      <p class="project-scope">Cocinas, placards y vestidores para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 05 -->
+  <div class="project">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-12.jpg" alt="Moreno" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">05</div>
+      <div class="project-client">ZANARA</div>
+      <h3 class="project-name">Moreno</h3>
+      <p class="project-addr">Moreno 939, San Isidro</p>
+      <div class="project-divider"></div>
+      <p class="project-units">8 unidades</p>
+      <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 06 -->
+  <div class="project reverse">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-14.jpg" alt="Bustamante" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">06</div>
+      <div class="project-client">GRUPO HEXAGONO</div>
+      <h3 class="project-name">Bustamante</h3>
+      <p class="project-addr">Bustamante 2532, CABA</p>
+      <div class="project-divider"></div>
+      <p class="project-units">35 unidades</p>
+      <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 07 -->
+  <div class="project">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-16.jpg" alt="Pasaje Calas" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">07</div>
+      <div class="project-client">ARG REALTY</div>
+      <h3 class="project-name">Pasaje Calas</h3>
+      <p class="project-addr">Aguero 1468, CABA</p>
+      <div class="project-divider"></div>
+      <p class="project-units">50 unidades</p>
+      <p class="project-scope">Cocinas a medida para todos los departamentos del edificio.</p>
+    </div>
+  </div>
+
+  <!-- PROJECT 08 -->
+  <div class="project reverse">
+    <div class="project-photo">
+      <img src="DESARROLLOS/fotos/proj-18.jpg" alt="Agora I" />
+    </div>
+    <div class="project-info">
+      <div class="project-num">08</div>
+      <div class="project-client">ZANARA</div>
+      <h3 class="project-name">Agora I</h3>
+      <p class="project-addr">R. Camaño 1103, Pilar</p>
+      <div class="project-divider"></div>
+      <p class="project-units">50 unidades</p>
+      <p class="project-scope">Frentes de placard para todas las unidades del complejo.</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
   <div class="dev-cta">
-    <p>¿Tenés un proyecto?</p>
+    <p class="eyebrow">¿Tenés un proyecto?</p>
     <h2>Hablemos de tu desarrollo</h2>
+    <p>Coordinamos una reunión para entender el alcance y presentarte una propuesta a medida.</p>
     <a href="index.html#contacto">Contactanos</a>
   </div>
 
