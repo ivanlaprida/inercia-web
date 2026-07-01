@@ -593,32 +593,23 @@
 
     /* ── NOSOTROS ── */
     #nosotros {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      padding: 0;
-      align-items: stretch;
-    }
-
-    .nosotros-content {
-      padding: 100px 60px;
-    }
-
-    .nosotros-photo {
-      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       position: relative;
-      min-height: 560px;
+      background-image: url('EL TREBOL/acr trebol-023.jpg');
+      background-size: cover;
+      background-position: center;
     }
 
-    .nosotros-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.7s ease;
+    #nosotros::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(250, 250, 248, 0.90);
     }
 
-    .nosotros-photo:hover img { transform: scale(1.03); }
+    #nosotros > * { position: relative; z-index: 1; }
 
     .nosotros-image {
       display: grid;
@@ -1128,9 +1119,7 @@
       }
 
       /* NOSOTROS */
-      #nosotros { grid-template-columns: 1fr; }
-      .nosotros-content { padding: 64px 24px; }
-      .nosotros-photo { min-height: 60vw; }
+      #nosotros { padding: 64px 24px; }
       .nosotros-stats { gap: 24px; }
 
       /* CONTACTO */
@@ -1523,7 +1512,7 @@
 
   <!-- NOSOTROS -->
   <section id="nosotros">
-    <div class="nosotros-content">
+    <div class="nosotros-content" style="max-width:760px;">
       <p class="section-eyebrow">Quiénes somos</p>
       <h2 class="section-title">Creamos muebles a medida. Diseñamos experiencias de principio a fin.</h2>
       <div class="divider"></div>
@@ -1557,9 +1546,6 @@
           <div class="stat-label">Fabricación nacional</div>
         </div>
       </div>
-    </div>
-    <div class="nosotros-photo">
-      <img src="EL TREBOL/acr trebol-023.jpg" alt="Cocina Inercia" />
     </div>
   </section>
 
