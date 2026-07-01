@@ -1601,20 +1601,21 @@
           </div>
         </div>
       </div>
-      <form onsubmit="handleSubmit(event)">
+      <form name="contacto" method="POST" data-netlify="true" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="contacto" />
         <div class="form-row">
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" placeholder="Tu nombre" required />
+            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
           </div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" placeholder="tu@email.com" required />
+            <input type="email" id="email" name="email" placeholder="tu@email.com" required />
           </div>
         </div>
         <div class="form-group">
           <label for="servicio">¿Qué necesitás?</label>
-          <select id="servicio">
+          <select id="servicio" name="servicio">
             <option value="">Seleccioná un servicio</option>
             <option value="cocina">Cocina a medida</option>
             <option value="vestidor">Vestidor</option>
@@ -1624,7 +1625,7 @@
         </div>
         <div class="form-group">
           <label for="mensaje">Mensaje</label>
-          <textarea id="mensaje" placeholder="Contanos sobre tu proyecto, espacio disponible, ideas..."></textarea>
+          <textarea id="mensaje" name="mensaje" placeholder="Contanos sobre tu proyecto, espacio disponible, ideas..."></textarea>
         </div>
         <button type="submit" class="btn-submit">Enviar consulta</button>
       </form>
@@ -1757,16 +1758,29 @@
     // Form submit
     function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('.btn-submit');
-      btn.textContent = '¡Mensaje enviado!';
-      btn.style.background = '#8B6F47';
+      const form = e.target;
+      const btn = form.querySelector('.btn-submit');
+      btn.textContent = 'Enviando...';
       btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Enviar consulta';
-        btn.style.background = '';
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      })
+      .then(() => {
+        btn.textContent = '¡Mensaje enviado!';
+        btn.style.background = '#8B6F47';
+        form.reset();
+        setTimeout(() => {
+          btn.textContent = 'Enviar consulta';
+          btn.style.background = '';
+          btn.disabled = false;
+        }, 4000);
+      })
+      .catch(() => {
+        btn.textContent = 'Error, intentá de nuevo';
         btn.disabled = false;
-        e.target.reset();
-      }, 3000);
+      });
     }
 
     // Smooth reveal on scroll
