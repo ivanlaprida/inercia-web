@@ -237,35 +237,20 @@
     .project {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 600px;
+      min-height: 540px;
       border-bottom: 1px solid #222;
     }
 
-    .project.reverse .project-photos { grid-column: 2; grid-row: 1; }
-    .project.reverse .project-info   { grid-column: 1; grid-row: 1; }
+    .project.reverse .project-photo { grid-column: 2; grid-row: 1; }
+    .project.reverse .project-info  { grid-column: 1; grid-row: 1; }
 
-    /* TWO STACKED PHOTOS */
-    .project-photos {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .project-photo-main {
-      flex: 0 0 62%;
+    .project-photo {
       overflow: hidden;
       position: relative;
-      border-bottom: 1px solid #222;
+      background: #1a1a1a;
     }
 
-    .project-photo-ext {
-      flex: 0 0 38%;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .project-photo-main img,
-    .project-photo-ext img {
+    .project-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -273,33 +258,25 @@
       transition: transform 0.7s ease;
     }
 
-    .project:hover .project-photo-main img,
-    .project:hover .project-photo-ext img {
+    .project:hover .project-photo img {
       transform: scale(1.04);
     }
 
-    /* INFO PANEL */
     .project-info {
-      padding: 52px 64px;
+      padding: 60px 70px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       background: var(--black);
-      border-left: 1px solid #1e1e1e;
-    }
-
-    .project.reverse .project-info {
-      border-left: none;
-      border-right: 1px solid #1e1e1e;
     }
 
     .project-num {
       font-family: 'Playfair Display', serif;
-      font-size: 72px;
+      font-size: 80px;
       font-weight: 400;
       color: #1e1e1e;
       line-height: 1;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       letter-spacing: -3px;
     }
 
@@ -309,14 +286,14 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--warm);
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .project-name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(20px, 2vw, 28px);
+      font-size: clamp(22px, 2vw, 30px);
       font-weight: 400;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       line-height: 1.2;
       color: var(--white);
     }
@@ -325,32 +302,15 @@
       font-size: 13px;
       font-weight: 400;
       color: var(--gray);
-      margin-bottom: 20px;
+      margin-bottom: 36px;
       letter-spacing: 0.04em;
-    }
-
-    /* MAP THUMBNAIL */
-    .project-map {
-      width: 100%;
-      max-width: 220px;
-      margin-bottom: 28px;
-      border: 1px solid #2a2a2a;
-      border-radius: 2px;
-      overflow: hidden;
-      background: #f5f4f0;
-    }
-
-    .project-map img {
-      width: 100%;
-      height: auto;
-      display: block;
     }
 
     .project-divider {
       width: 40px;
       height: 1px;
       background: var(--accent);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
     .project-units {
@@ -359,7 +319,7 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--gray);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .project-scope {
@@ -423,14 +383,12 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <div class="dev-hero">
     <p class="eyebrow">Desarrollos inmobiliarios · Buenos Aires, Argentina</p>
     <h1>Equipamos proyectos completos, desde el diseño hasta la instalación.</h1>
     <p class="desc">Trabajamos con desarrolladores inmobiliarios en proyectos residenciales, comerciales y corporativos de cualquier escala.</p>
   </div>
 
-  <!-- STATS -->
   <div class="stats">
     <div class="stat">
       <div class="stat-num">8</div>
@@ -446,7 +404,6 @@
     </div>
   </div>
 
-  <!-- INTRO -->
   <div class="dev-intro">
     <div class="dev-intro-label">Sobre Inercia</div>
     <div class="dev-intro-text">
@@ -456,157 +413,115 @@
     </div>
   </div>
 
-  <!-- PROJECTS HEADER -->
   <div class="projects-header">
     <h2>Proyectos ejecutados</h2>
     <span>8 desarrollos · CABA y GBA</span>
   </div>
 
-  <!-- PROJECT 01 -->
   <div class="project">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-04.jpg" alt="Urbana Las Lomas — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-03.jpg" alt="Urbana Las Lomas — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-04.jpg" alt="Urbana Las Lomas" /></div>
     <div class="project-info">
       <div class="project-num">01</div>
       <div class="project-client">ARG REALTY</div>
       <h3 class="project-name">Urbana Las Lomas</h3>
       <p class="project-addr">Sucre 2257, San Isidro</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-03.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">32 unidades</p>
       <p class="project-scope">Cocinas a medida para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 02 -->
   <div class="project reverse">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-06.jpg" alt="Juncal — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-05.jpg" alt="Juncal — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-06.jpg" alt="Juncal" /></div>
     <div class="project-info">
       <div class="project-num">02</div>
       <div class="project-client">GRUPO HEXAGONO</div>
       <h3 class="project-name">Juncal</h3>
       <p class="project-addr">Juncal 4648, CABA</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-05.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">25 unidades</p>
       <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 03 -->
   <div class="project">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-08.jpg" alt="Green Housing — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-07.jpg" alt="Green Housing — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-08.jpg" alt="Green Housing" /></div>
     <div class="project-info">
       <div class="project-num">03</div>
       <div class="project-client">PERRI CONSTRUCCIONES</div>
       <h3 class="project-name">Green Housing</h3>
       <p class="project-addr">La Pampa 3434, CABA</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-07.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">9 casas</p>
       <p class="project-scope">Cocinas, placards, vestidores y baños para todas las casas del complejo.</p>
     </div>
   </div>
 
-  <!-- PROJECT 04 -->
   <div class="project reverse">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-10.jpg" alt="Tres Sargentos — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-09.jpg" alt="Tres Sargentos — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-10.jpg" alt="Tres Sargentos" /></div>
     <div class="project-info">
       <div class="project-num">04</div>
       <div class="project-client">ESTUDIO RUDA</div>
       <h3 class="project-name">Tres Sargentos</h3>
       <p class="project-addr">Tres Sargentos 2150, Martínez</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-09.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">12 unidades</p>
       <p class="project-scope">Cocinas, placards y vestidores para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 05 -->
   <div class="project">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-12.jpg" alt="Moreno — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-11.jpg" alt="Moreno — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-12.jpg" alt="Moreno" /></div>
     <div class="project-info">
       <div class="project-num">05</div>
       <div class="project-client">ZANARA</div>
       <h3 class="project-name">Moreno</h3>
       <p class="project-addr">Moreno 939, San Isidro</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-11.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">8 unidades</p>
       <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 06 -->
   <div class="project reverse">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-14.jpg" alt="Bustamante — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-13.jpg" alt="Bustamante — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-14.jpg" alt="Bustamante" /></div>
     <div class="project-info">
       <div class="project-num">06</div>
       <div class="project-client">GRUPO HEXAGONO</div>
       <h3 class="project-name">Bustamante</h3>
       <p class="project-addr">Bustamante 2532, CABA</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-13.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">35 unidades</p>
       <p class="project-scope">Cocinas y frentes de placard para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 07 -->
   <div class="project">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-16.jpg" alt="Pasaje Calas — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-15.jpg" alt="Pasaje Calas — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-16.jpg" alt="Pasaje Calas" /></div>
     <div class="project-info">
       <div class="project-num">07</div>
       <div class="project-client">ARG REALTY</div>
       <h3 class="project-name">Pasaje Calas</h3>
       <p class="project-addr">Aguero 1468, CABA</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-15.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">50 unidades</p>
       <p class="project-scope">Cocinas a medida para todos los departamentos del edificio.</p>
     </div>
   </div>
 
-  <!-- PROJECT 08 -->
   <div class="project reverse">
-    <div class="project-photos">
-      <div class="project-photo-main"><img src="DESARROLLOS/fotos/proj-18.jpg" alt="Agora I — interior" /></div>
-      <div class="project-photo-ext"><img src="DESARROLLOS/fotos/ext-17.jpg" alt="Agora I — exterior" /></div>
-    </div>
+    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-18.jpg" alt="Agora I" /></div>
     <div class="project-info">
       <div class="project-num">08</div>
       <div class="project-client">ZANARA</div>
       <h3 class="project-name">Agora I</h3>
       <p class="project-addr">R. Camaño 1103, Pilar</p>
-      <div class="project-map"><img src="DESARROLLOS/fotos/map-17.jpg" alt="Ubicación" /></div>
       <div class="project-divider"></div>
       <p class="project-units">50 unidades</p>
       <p class="project-scope">Frentes de placard para todas las unidades del complejo.</p>
     </div>
   </div>
 
-  <!-- CTA -->
   <div class="dev-cta">
     <p class="eyebrow">¿Tenés un proyecto?</p>
     <h2>Hablemos de tu desarrollo</h2>
