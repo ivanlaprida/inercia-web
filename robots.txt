@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /*~$
+Disallow: /index%20-%20copia.html
+Disallow: /INERCIA_WEB_ESTADO.md
+Disallow: /Fotos%20Web/
+
+Sitemap: https://inerciaba.com/sitemap.xml

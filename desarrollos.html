@@ -1,9 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- Google tag (Analytics G-6478RFE6CM) -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-N3H9FXQQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Desarrollos — Inercia</title>
+  <meta name="description" content="Equipamiento de cocinas y muebles para desarrolladores inmobiliarios y proyectos comerciales: ingeniería de detalle, fabricación propia e instalación." />
+  <link rel="canonical" href="https://inerciaba.com/desarrollos" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Inercia" />
+  <meta property="og:locale" content="es_AR" />
+  <meta property="og:title" content="Desarrollos — Inercia" />
+  <meta property="og:description" content="Equipamiento de cocinas y muebles para desarrolladores inmobiliarios y proyectos comerciales: ingeniería de detalle, fabricación propia e instalación." />
+  <meta property="og:url" content="https://inerciaba.com/desarrollos" />
+  <meta property="og:image" content="https://inerciaba.com/PIROVANO/IMG_9858.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -451,7 +468,7 @@
   </div>
 
   <div class="project">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-04.jpg" alt="Urbana Las Lomas" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-04.jpg" alt="Urbana Las Lomas" /></div>
     <div class="project-info">
       <div class="project-num">01</div>
       <div class="project-client">ARG REALTY</div>
@@ -464,7 +481,7 @@
   </div>
 
   <div class="project reverse">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-06.jpg" alt="Juncal" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-06.jpg" alt="Juncal" /></div>
     <div class="project-info">
       <div class="project-num">02</div>
       <div class="project-client">GRUPO HEXAGONO</div>
@@ -477,7 +494,7 @@
   </div>
 
   <div class="project">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-08.jpg" alt="Green Housing" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-08.jpg" alt="Green Housing" /></div>
     <div class="project-info">
       <div class="project-num">03</div>
       <div class="project-client">PERRI CONSTRUCCIONES</div>
@@ -490,7 +507,7 @@
   </div>
 
   <div class="project reverse">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-10.jpg" alt="Tres Sargentos" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-10.jpg" alt="Tres Sargentos" /></div>
     <div class="project-info">
       <div class="project-num">04</div>
       <div class="project-client">ESTUDIO RUDA</div>
@@ -503,7 +520,7 @@
   </div>
 
   <div class="project">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-12.jpg" alt="Moreno" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-12.jpg" alt="Moreno" /></div>
     <div class="project-info">
       <div class="project-num">05</div>
       <div class="project-client">ZANARA</div>
@@ -516,7 +533,7 @@
   </div>
 
   <div class="project reverse">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-14.jpg" alt="Bustamante" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-14.jpg" alt="Bustamante" /></div>
     <div class="project-info">
       <div class="project-num">06</div>
       <div class="project-client">GRUPO HEXAGONO</div>
@@ -529,7 +546,7 @@
   </div>
 
   <div class="project">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-16.jpg" alt="Pasaje Calas" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-16.jpg" alt="Pasaje Calas" /></div>
     <div class="project-info">
       <div class="project-num">07</div>
       <div class="project-client">ARG REALTY</div>
@@ -542,7 +559,7 @@
   </div>
 
   <div class="project reverse">
-    <div class="project-photo"><img src="DESARROLLOS/fotos/proj-18.jpg" alt="Agora I" /></div>
+    <div class="project-photo"><img loading="lazy" src="DESARROLLOS/fotos/proj-18.jpg" alt="Agora I" /></div>
     <div class="project-info">
       <div class="project-num">08</div>
       <div class="project-client">ZANARA</div>
@@ -561,5 +578,17 @@
     <a href="index.html#contacto">Contactanos</a>
   </div>
 
+<!-- Medición de contactos (Analytics) -->
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (!a || typeof gtag !== 'function') return;
+    var h = a.getAttribute('href') || '';
+    if (h.indexOf('wa.me') > -1) gtag('event', 'click_whatsapp', { link_url: h });
+    else if (h.indexOf('mailto:') === 0) gtag('event', 'click_email');
+    else if (h.indexOf('instagram.com') > -1) gtag('event', 'click_instagram');
+    else if (/\.pdf$/i.test(h)) gtag('event', 'descarga_presentacion', { file_name: h });
+  });
+</script>
 </body>
 </html>
